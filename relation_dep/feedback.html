@@ -8,9 +8,10 @@
 
 <link rel="stylesheet" href="../assets/css/layout.css">
 <link rel="stylesheet" href="../assets/css/feedback.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../assets/js/supabase-client.js"></script>
 <script defer src="../assets/js/layout.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script defer src="../assets/js/feedback.js"></script>
 </head>
 
@@ -18,7 +19,7 @@
 
 <div class="header">
     <div class="menu-btn" onclick="toggleSidebar()">☰</div>
-    <div class="page-title">قسم العلاقات</div>
+    <div class="page-title">مستشفى ابراء قسم العلاقات</div>
 </div>
 
 <div id="sidebar" class="sidebar">
@@ -26,6 +27,7 @@
     <a href="search.html">البحث</a>
     <a href="daily-events.html">الأحداث اليومية</a>
     <a href="feedback.html">الشكاوى / الاقتراحات / الشكر</a>
+    <a href="../form.html">تسجيل شكر/إقتراح/شكوى</a>
     <a href="../index.html">تسجيل خروج</a>
 </div>
 
@@ -72,29 +74,8 @@
 
         <h3>اختيار الأقسام</h3>
 
-        <div class="departments-list">
-
-            <label><input type="checkbox" value="finance"> دائرة الشؤون المالية</label>
-
-            <label><input type="checkbox" value="it"> دائرة تقنية المعلومات والإحصاء</label>
-
-            <label><input type="checkbox" value="quality"> دائرة الجودة وسلامة المرضى</label>
-
-            <label><input type="checkbox" value="training"> دائرة التدريب والتطوير المهني</label>
-
-            <label><input type="checkbox" value="public_relations"> قسم العلاقات العامة والإعلام</label>
-
-            <label><input type="checkbox" value="engineering"> قسم الهندسة والصيانة</label>
-
-            <label><input type="checkbox" value="pharmacy"> قسم الصيدلة</label>
-
-            <label><input type="checkbox" value="laboratory"> قسم المختبرات الطبية</label>
-
-            <label><input type="checkbox" value="radiology"> قسم الأشعة والتصوير الطبي</label>
-
-            <label><input type="checkbox" value="nutrition"> قسم التغذية العلاجية</label>
-
-        </div>
+        <div class="departments-list" id="departmentsList">
+</div>
 
         <div class="modal-buttons">
             <button onclick="saveAssignment()">حفظ</button>

@@ -33,15 +33,16 @@ body {
 }
 
 .page-title {
-  font-size: 18px;
+  font-size: 25px;
   font-weight: bold;
 }
 
 /* ===== SIDEBAR ===== */
 .sidebar {
+  font-size: 25px;
   width: 220px;
   height: calc(100vh - 60px);
-  background: #1f2a40;
+  background: #0d47ba;
   position: fixed;
   top: 60px;
   right: 0;
