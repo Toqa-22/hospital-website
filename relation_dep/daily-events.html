@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Public Relations - Search</title>
+
+<link rel="stylesheet" href="../assets/css/layout.css">
+<link rel="stylesheet" href="../assets/css/daily-events.css">
+<script defer src="../assets/js/layout.js"></script>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+  <div>قسم العلاقات</div>
+</div>
+
+<!-- SIDEBAR -->
+<div id="sidebar" class="sidebar">
+  <a href="home.html">الرئيسية</a>
+  <a href="search.html">البحث</a>
+  <a href="daily-events.html">الأحداث اليومية</a>
+  <a href="feedback.html">الشكاوي / الاقتراحات / الشكر</a>
+  <a href="../index.html">تسجيل خروج</a>
+</div>
+
+<!-- CONTENT -->
+<div id="content" class="content">
+
+    <h2>تسجيل الأحداث اليومية</h2>
+
+    <form id="dailyEventForm">
+
+        <div class="form-group">
+            <label>الفترة *</label>
+            <select name="period" required>
+                <option value="">اختر الفترة</option>
+                <option value="morning">صباحية</option>
+                <option value="evening">مسائية</option>
+                <option value="night">ليلية</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>وقت التسجيل *</label>
+            <input type="datetime-local"
+                   name="registration_time"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>وقت الحدوث *</label>
+            <input type="datetime-local"
+                   name="incident_time"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>اسم المريض *</label>
+            <input type="text"
+                   name="patient_name"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>رقم الملف *</label>
+            <input type="text"
+                   name="file_number"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>رقم الهاتف</label>
+            <input type="tel"
+                   name="phone_number">
+        </div>
+
+        <div class="form-group">
+            <label>اسم الشرطي المتصل به</label>
+            <input type="text"
+                   name="police_officer_name">
+        </div>
+
+        <div class="form-group">
+            <label>وقت الإبلاغ *</label>
+            <input type="datetime-local"
+                   name="report_time"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>نوع الحالة *</label>
+
+            <select name="case_type" required>
+
+                <option value="">اختر نوع الحالة</option>
+
+                <option value="road_accident">حادث سير</option>
+                <option value="fall_accident">حادث سقوط</option>
+                <option value="poisoning_accident">حادث تسمم</option>
+                <option value="assault_accident">حادث اعتداء</option>
+                <option value="drowning_accident">حادث غرق</option>
+                <option value="electric_shock_accident">حادث التماس كهربائي</option>
+                <option value="workplace_injury">إصابة في مكان العمل</option>
+
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>ملاحظات *</label>
+
+            <textarea name="notes"
+                      rows="5"
+                      required></textarea>
+        </div>
+
+        <button type="submit">
+            حفظ الحدث
+        </button>
+
+    </form>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  © Public Relations System
+</div>
+
+</body>
+</html>

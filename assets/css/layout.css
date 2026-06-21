@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial;
+  font-family: Arial, sans-serif;
 }
 
 body {
@@ -17,8 +17,8 @@ body {
   background: linear-gradient(135deg, #2c7be5, #1a56d6);
   color: white;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 12px;
   padding: 0 20px;
   position: fixed;
   top: 0;
@@ -29,11 +29,7 @@ body {
 .menu-btn {
   font-size: 28px;
   cursor: pointer;
-}
-/* Search Page Header */
-.header {
-  justify-content: flex-start;
-  gap: 12px;
+  user-select: none;
 }
 
 .page-title {
@@ -44,13 +40,14 @@ body {
 /* ===== SIDEBAR ===== */
 .sidebar {
   width: 220px;
-  height: 100vh;
+  height: calc(100vh - 60px);
   background: #1f2a40;
   position: fixed;
   top: 60px;
   right: 0;
   padding-top: 20px;
-  transition: 0.3s;
+  transition: transform 0.3s ease;
+  overflow-y: auto;
 }
 
 .sidebar a {
@@ -58,6 +55,7 @@ body {
   color: #cfd6e6;
   padding: 12px 20px;
   text-decoration: none;
+  transition: 0.3s;
 }
 
 .sidebar a:hover {
@@ -65,20 +63,23 @@ body {
   color: white;
 }
 
+/* إخفاء القائمة */
 .sidebar.hide {
-  right: -220px;
+  transform: translateX(220px);
 }
 
-/* ===== CONTENT (shared) ===== */
+/* ===== CONTENT ===== */
 .content {
   margin-top: 60px;
   margin-right: 220px;
   padding: 20px;
-  transition: 0.3s;
+  width: calc(100% - 220px);
+  transition: all 0.3s ease;
 }
 
 .content.full {
   margin-right: 0;
+  width: 100%;
 }
 
 /* ===== FOOTER ===== */
