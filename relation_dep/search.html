@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Public Relations - Search</title>
+
+<link rel="stylesheet" href="../assets/css/layout.css">
+<link rel="stylesheet" href="../assets/css/search.css">
+<script defer src="../assets/js/layout.js"></script>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+  <div>قسم العلاقات</div>
+</div>
+
+<!-- SIDEBAR -->
+<div id="sidebar" class="sidebar">
+  <a href="home.html">الرئيسية</a>
+  <a href="search.html">البحث</a>
+  <a href="daily-events.html">الأحداث اليومية</a>
+  <a href="feedback.html">الشكاوي / الاقتراحات / الشكر</a>
+  <a href="logout.html">تسجيل خروج</a>
+</div>
+
+<!-- CONTENT -->
+<div id="content" class="content">
+
+  <div class="card">
+    <h3>🔴 الشكاوي</h3>
+    <input type="text" placeholder="ابحث في الشكاوي">
+    <input type="date">
+    <button>بحث</button>
+  </div>
+
+  <div class="card">
+    <h3>🟡 الاقتراحات</h3>
+    <input type="text" placeholder="ابحث في الاقتراحات">
+    <input type="date">
+    <button>بحث</button>
+  </div>
+
+  <div class="card">
+    <h3>🟢 الشكر</h3>
+    <input type="text" placeholder="ابحث في الشكر">
+    <input type="date">
+    <button>بحث</button>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  © Public Relations System
+</div>
+
+</body>
+</html>
