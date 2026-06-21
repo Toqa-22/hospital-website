@@ -1,14 +1,20 @@
-// assets/js/daily-events.js
-
 document.addEventListener("DOMContentLoaded", () => {
+
+    const supabase = window.supabaseClient;
+
+    if (!supabase) {
+        console.error("❌ Supabase not loaded!");
+        return;
+    }
+
     const form = document.getElementById("dailyEventForm");
-    
+
     if (form) {
         form.addEventListener("submit", async function(event) {
-            event.preventDefault(); // منع الصفحة من إعادة التحميل
+            event.preventDefault();
+
             console.log("تم الضغط على زر الحفظ...");
 
-            // 1. جمع البيانات
             const formData = {
                 period: document.getElementById("period").value,
                 registration_time: document.getElementById("registration_time").value,
@@ -22,29 +28,28 @@ document.addEventListener("DOMContentLoaded", () => {
                 notes: document.getElementById("notes").value
             };
 
-            console.log("البيانات الجاهزة للإرسال:", formData);
+            console.log("📦 formData:", formData);
 
-            // 2. الإرسال إلى Supabase
             try {
-                const { error } = await window.supabaseClient
+                const { data, error } = await supabase
                     .from('daily_events')
                     .insert([formData]);
 
                 if (error) {
-                    console.error("خطأ من Supabase:", error);
+                    console.error("❌ Supabase error:", error);
                     alert("خطأ أثناء الحفظ: " + error.message);
-                } else {
-                    // 3. رسالة النجاح
-                    alert("تم حفظ الحدث بنجاح!");
-                    form.reset(); // مسح الحقول بعد الحفظ
-                    console.log("تم الحفظ بنجاح وتصفير الفورم.");
+                    return;
                 }
+
+                alert("تم حفظ الحدث بنجاح!");
+                form.reset();
+
             } catch (err) {
-                console.error("خطأ غير متوقع:", err);
-                alert("حدث خطأ غير متوقع، راجعي Console.");
+                console.error("❌ Unexpected error:", err);
             }
         });
     } else {
-        console.error("لم يتم العثور على العنصر dailyEventForm");
+        console.error("❌ dailyEventForm not found");
     }
+
 });
