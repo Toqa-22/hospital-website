@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+<<<<<<< HEAD
     // ربط نموذج التقرير لضمان عمل مفتاح Enter
     const reportForm = document.getElementById("reportForm");
     if (reportForm) {
@@ -257,6 +258,8 @@ async function generateFeedbackTypeReport() {
         }
     }
 
+=======
+>>>>>>> 01ef492fdc1da088c1a6bc007eaaf73362db930f
     const departmentNames = {
     finance: "دائرة الشؤون المالية",
     it_statistics: "دائرة تقنية المعلومات والإحصاء",
