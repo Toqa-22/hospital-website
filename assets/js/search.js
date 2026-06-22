@@ -1,5 +1,259 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+    // ربط نموذج التقرير لضمان عمل مفتاح Enter
+    const reportForm = document.getElementById("reportForm");
+    if (reportForm) {
+        reportForm.addEventListener("submit", (e) => {
+            e.preventDefault(); // منع إعادة تحميل الصفحة
+            generateReport();
+        });
+    }
+
+    document.getElementById("feedbackReportBtn").addEventListener("click", generateFeedbackTypeReport);
+
+async function generateFeedbackTypeReport() {
+
+    const selectedTypes = [];
+
+    if (document.getElementById("thanksCheck")?.checked) {
+        selectedTypes.push("شكر");
+    }
+
+    if (document.getElementById("suggestionCheck")?.checked) {
+        selectedTypes.push("إقتراح");
+    }
+
+    if (document.getElementById("complaintCheck")?.checked) {
+        selectedTypes.push("شكوى");
+    }
+
+    if (selectedTypes.length === 0) {
+        alert("يرجى اختيار نوع حالة واحد على الأقل");
+        return;
+    }
+
+    const btn = document.getElementById("feedbackReportBtn");
+    btn.disabled = true;
+    btn.textContent = "جاري إنشاء التقرير...";
+
+    try {
+
+        const { data, error } = await supabase
+            .from("feedback")
+            .select("feedback_type")
+            .in("feedback_type", selectedTypes);
+
+        if (error) throw error;
+
+        if (!data || data.length === 0) {
+            alert("لا توجد بيانات مطابقة.");
+            return;
+        }
+
+        const summary = {
+            "شكر": 0,
+            "إقتراح": 0,
+            "شكوى": 0
+        };
+
+        data.forEach(row => {
+            if (summary[row.feedback_type] !== undefined) {
+                summary[row.feedback_type]++;
+            }
+        });
+
+        const total =
+            summary["شكر"] +
+            summary["إقتراح"] +
+            summary["شكوى"];
+
+        const reportHTML = `
+        <html dir="rtl">
+        <head>
+            <meta charset="UTF-8">
+            <title>تقرير الشكاوي والاقتراحات</title>
+            <style>
+                body{
+                    font-family:Tahoma,sans-serif;
+                    padding:40px;
+                    direction:rtl;
+                }
+
+                h1{
+                    text-align:center;
+                }
+
+                table{
+                    width:100%;
+                    border-collapse:collapse;
+                    margin-top:20px;
+                }
+
+                th,td{
+                    border:1px solid #000;
+                    padding:10px;
+                    text-align:center;
+                }
+
+                th{
+                    background:#f0f0f0;
+                }
+
+                .total{
+                    margin-top:20px;
+                    font-size:20px;
+                    font-weight:bold;
+                }
+            </style>
+        </head>
+        <body>
+
+            <h1>تقرير الشكاوي والاقتراحات</h1>
+
+            <table>
+                <tr>
+                    <th>نوع الحالة</th>
+                    <th>العدد</th>
+                </tr>
+
+                ${selectedTypes.includes("شكر")
+                    ? `<tr><td>شكر</td><td>${summary["شكر"]}</td></tr>`
+                    : ""}
+
+                ${selectedTypes.includes("إقتراح")
+                    ? `<tr><td>إقتراح</td><td>${summary["إقتراح"]}</td></tr>`
+                    : ""}
+
+                ${selectedTypes.includes("شكوى")
+                    ? `<tr><td>شكوى</td><td>${summary["شكوى"]}</td></tr>`
+                    : ""}
+            </table>
+
+            <div class="total">
+                المجموع الكلي: ${total}
+            </div>
+
+        </body>
+        </html>
+        `;
+
+        const win = window.open("", "_blank", "width=900,height=700");
+
+        if (!win) {
+            alert("تم حظر النافذة المنبثقة");
+            return;
+        }
+
+        win.document.write(reportHTML);
+        win.document.close();
+
+        setTimeout(() => {
+            win.print();
+        }, 500);
+
+    } catch (err) {
+        console.error(err);
+        alert("خطأ في إنشاء التقرير: " + err.message);
+    } finally {
+        btn.disabled = false;
+        btn.textContent = "إنشاء تقرير الشكاوي";
+    }
+}
+
+    async function generateReport() {
+        const fromDate = document.getElementById("fromDate")?.value;
+        const toDate = document.getElementById("toDate")?.value;
+
+        if (!fromDate || !toDate) {
+            alert("يرجى اختيار التاريخ (من وإلى)");
+            return;
+        }
+
+        const btn = document.getElementById("generateReportBtn");
+        if (btn) {
+            btn.disabled = true;
+            btn.textContent = "جاري الإنشاء...";
+        }
+
+        try {
+            // استخدام صيغة ISO المحددة لضمان التوافق مع +00 في القاعدة
+            const startISO = `${fromDate}T00:00:00Z`;
+            const endISO = `${toDate}T23:59:59Z`;
+
+            const { data, error } = await supabase
+                .from('daily_events')
+                .select('case_type')
+                .gte('incident_time', startISO)
+                .lte('incident_time', endISO);
+
+            if (error) throw error;
+
+            if (!data || data.length === 0) {
+                alert("لا توجد بيانات للفترة المختارة.");
+                return;
+            }
+
+            // تجميع البيانات
+            const summary = {};
+            data.forEach(item => {
+                const type = item.case_type || "غير محدد";
+                summary[type] = (summary[type] || 0) + 1;
+            });
+
+            // بناء محتوى التقرير
+            let total = 0;
+            let rows = "";
+            for (const type in summary) {
+                total += summary[type];
+                rows += `<tr><td>${type}</td><td>${summary[type]}</td></tr>`;
+            }
+
+            const reportHTML = `
+            <html dir="rtl">
+            <head>
+                <meta charset="UTF-8">
+                <style>
+                    body { font-family: Tahoma, sans-serif; padding: 40px; direction: rtl; }
+                    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                    th, td { border: 1px solid #333; padding: 10px; text-align: center; }
+                    th { background: #eee; }
+                    .footer-total { margin-top: 20px; font-weight: bold; font-size: 18px; }
+                </style>
+            </head>
+            <body>
+                <h1>تقرير الأحداث اليومية</h1>
+                <p>الفترة من: ${fromDate} إلى: ${toDate}</p>
+                <table>
+                    <tr><th>نوع الحالة</th><th>العدد</th></tr>
+                    ${rows}
+                </table>
+                <div class="footer-total">المجموع الكلي: ${total}</div>
+            </body>
+            </html>`;
+
+            // فتح النافذة
+            const win = window.open("", "_blank", "width=800,height=600");
+            if (!win) {
+                alert("تم حظر النافذة المنبثقة! يرجى السماح بها من إعدادات المتصفح.");
+                return;
+            }
+            win.document.write(reportHTML);
+            win.document.close();
+            
+            // الطباعة
+            setTimeout(() => { win.print(); }, 500);
+
+        } catch (err) {
+            console.error(err);
+            alert("خطأ في إنشاء التقرير: " + err.message);
+        } finally {
+            if (btn) {
+                btn.disabled = false;
+                btn.textContent = "إنشاء التقرير";
+            }
+        }
+    }
+
     const departmentNames = {
     finance: "دائرة الشؤون المالية",
     it_statistics: "دائرة تقنية المعلومات والإحصاء",

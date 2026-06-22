@@ -36,6 +36,20 @@
 <div id="content" class="content">
 
   <div class="card">
+
+    <h3>تقرير بنوع الحالات</h3>
+
+    <form id="reportForm">
+        <input type="date" id="fromDate" required>
+        <input type="date" id="toDate" required>
+        <button type="submit" id="generateReportBtn">إنشاء التقرير</button>
+    </form>
+
+    <div id="reportResult"></div>
+
+</div>
+
+  <div class="card">
     <h3>البحث المتقدم في الأحداث</h3>
     
     <div class="search-container" style="display: flex; gap: 10px; align-items: center;">
@@ -71,6 +85,22 @@
   </table>
 </div>
 
+  <div class="card">
+  <h3>بحث بلاغات الشكاوي</h3>
+  <div>
+    <label>نوع الحالة</label><br>
+
+    <input type="checkbox" id="thanksCheck"> شكر
+
+    <input type="checkbox" id="suggestionCheck"> إقتراح
+
+    <input type="checkbox" id="complaintCheck"> شكوى
+</div>
+
+  <button id="feedbackReportBtn">إنشاء التقرير</button>
+
+  <div id="reportResult"></div>
+  </div>
 
   <div class="card">
     <h3>بحث بلاغات الشكاوي</h3>
