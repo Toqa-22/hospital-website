@@ -26,7 +26,6 @@ button {
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  position: relative;
   pointer-events: auto; /* التأكد من أن الزر يستقبل النقر */
   cursor: pointer;
 }
@@ -36,7 +35,6 @@ button:hover {
 }
 
 .button-group {
-    position: relative;
     display: flex;
     gap: 10px;
     margin-top: 15px;

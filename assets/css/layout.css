@@ -104,3 +104,21 @@ body {
 h2{
   font-size: 20px;
 }
+
+@media (max-width: 768px) {
+
+    .content {
+        margin-right: 0;
+        padding: 10px;
+        width: 100%;
+    }
+
+    .table-container {
+        padding: 10px;
+        overflow-x: auto;
+    }
+
+    table {
+        min-width: 900px; /* allows scrolling instead of stretching page */
+    }
+}
