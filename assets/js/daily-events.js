@@ -52,8 +52,4 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("❌ dailyEventForm not found");
     }
 
-<<<<<<< HEAD
 });
-=======
-});
->>>>>>> 01ef492fdc1da088c1a6bc007eaaf73362db930f

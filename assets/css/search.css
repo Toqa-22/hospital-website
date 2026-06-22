@@ -37,10 +37,6 @@ button:hover {
 
 .button-group {
     position: relative;
-<<<<<<< HEAD
-=======
-    z-index: 9999; /* جعل الأزرار دائماً في المقدمة */
->>>>>>> 01ef492fdc1da088c1a6bc007eaaf73362db930f
     display: flex;
     gap: 10px;
     margin-top: 15px;

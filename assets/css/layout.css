@@ -43,11 +43,7 @@ body {
   font-size: 25px;
   width: 220px;
   height: calc(100vh - 60px);
-<<<<<<< HEAD
   background: linear-gradient(135deg, #2c7be5, #123074);
-=======
-  background: #0d47ba;
->>>>>>> 01ef492fdc1da088c1a6bc007eaaf73362db930f
   position: fixed;
   top: 60px;
   right: 0;

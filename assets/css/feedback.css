@@ -153,12 +153,9 @@ tbody tr:hover{
     max-height: 80vh; /* تحديد الارتفاع لظهور شريط التمرير */
     display: flex;
     flex-direction: column;
-<<<<<<< HEAD
 }
 .content {
     /* هذا يجعل الجدول لا يلتصق بالأطراف ويترك مساحة للقائمة */
     margin-right: 250px; 
     transition: margin-right 0.4s ease;
-=======
->>>>>>> 01ef492fdc1da088c1a6bc007eaaf73362db930f
 }

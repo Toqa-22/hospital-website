@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar">
 
-<<<<<<< HEAD
 <head>
   <meta charset="UTF-8">
   <title>Public Relations - Search</title>
@@ -13,15 +12,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="../assets/js/supabase-client.js"></script>
   <script src="../assets/js/search.js"></script>
-=======
-<link rel="stylesheet" href="../assets/css/layout.css">
-<link rel="stylesheet" href="../assets/css/search.css">
-<script defer src="../assets/js/layout.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="../assets/js/supabase-client.js"></script>
-<script src="../assets/js/search.js"></script>
->>>>>>> 01ef492fdc1da088c1a6bc007eaaf73362db930f
 
 </head>
 
@@ -31,7 +21,6 @@
   <div class="header">
     <div class="menu-btn" onclick="toggleSidebar()">☰</div>
     <div class="page-title">مستشفى ابراء قسم العلاقات</div>
-<<<<<<< HEAD
   </div>
 
   <!-- SIDEBAR -->
@@ -45,95 +34,6 @@
     <a href="../form.html">تسجيل شكر/إقتراح/شكوى</a>
     <a href="../index.html">تسجيل خروج</a>
   </div>
-=======
-</div>
-
-<!-- SIDEBAR -->
-<div id="sidebar" class="sidebar">
-  <a href="../form.html">الرئيسية</a>
-  <a href="search.html">البحث</a>
-  <a href="daily-events.html">الأحداث اليومية</a>
-  <a href="feedback.html">الشكاوي / الاقتراحات / الشكر</a>
-  <a href="../form.html">تسجيل شكر/إقتراح/شكوى</a>
-  <a href="logout.html">تسجيل خروج</a>
-</div>
-
-<!-- CONTENT -->
-<div id="content" class="content">
-
-  <div class="card">
-    <h3>البحث المتقدم في الأحداث</h3>
-    
-    <div class="search-container" style="display: flex; gap: 10px; align-items: center;">
-        <input type="text" id="generalSearch" 
-               placeholder="ابحث بأي معلومة (اسم، رقم ملف، نوع حالة، اسم شرطي، ملاحظات...)" 
-               style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
-        
-        <div class="button-group">
-          <button type="button" id="searchBtn">بحث</button>
-          <button type="button" id="showAllBtn">عرض الكل</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-  <table border="1" style="width:100%; border-collapse: collapse;">
-    <thead>
-      <tr>
-        <th>الفترة</th>
-        <th>تسجيل</th>
-        <th>الواقعة</th>
-        <th>اسم المريض</th>
-        <th>رقم الملف</th>
-        <th>الهاتف</th>
-        <th>الشرطي</th>
-        <th>وقت البلاغ</th>
-        <th>نوع الحالة</th>
-        <th>ملاحظات</th>
-      </tr>
-    </thead>
-
-    <tbody id="resultsBody"></tbody>
-  </table>
-</div>
-
-
-  <div class="card">
-    <h3>بحث بلاغات الشكاوي</h3>
-
-    <div class="search-container" style="display: flex; gap: 10px; align-items: center;">
-
-        <input type="text" id="feedbackSearch"
-               placeholder="ابحث (اسم المريض، رقم الملف، النوع، المبلغ...)"
-               style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
-
-        <div class="button-group">
-            <button type="button" id="feedbackSearchBtn">بحث</button>
-            <button type="button" id="feedbackShowAllBtn">عرض الكل</button>
-        </div>
-
-    </div>
-</div>
-
-<div class="card">
-  <table border="1" style="width:100%; border-collapse: collapse;">
-    <thead>
-      <tr>
-        <th>التاريخ</th>
-        <th>اسم المريض</th>
-        <th>رقم الملف</th>
-        <th>المبلغ</th>
-        <th>الهاتف</th>
-        <th>القسم</th>
-        <th>نوع الحالة</th>
-        <th>ملاحظات</th>
-      </tr>
-    </thead>
-
-    <tbody id="feedbackResults"></tbody>
-  </table>
-</div>
->>>>>>> 01ef492fdc1da088c1a6bc007eaaf73362db930f
 
   <!-- CONTENT -->
   <div id="content" class="content">
