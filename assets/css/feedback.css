@@ -1,8 +1,11 @@
-.table-container{
-    background:#fff;
-    padding:25px;
-    border-radius:15px;
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
+.table-container {
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+
+    overflow-x: auto;
+    max-width: 100%;
 }
 
 .table-top{
@@ -25,10 +28,11 @@
     cursor:pointer;
 }
 
-table{
-    width:100%;
-    border-collapse:collapse;
-    background:white;
+table {
+    width: 100%;
+    min-width: 1200px;
+    border-collapse: collapse;
+    background: white;
 }
 
 thead th{
@@ -155,7 +159,11 @@ tbody tr:hover{
     flex-direction: column;
 }
 .content {
-    /* هذا يجعل الجدول لا يلتصق بالأطراف ويترك مساحة للقائمة */
-    margin-right: 250px; 
+    margin-right: 250px;
     transition: margin-right 0.4s ease;
+
+    width: calc(100% - 270px);
+    box-sizing: border-box;
+    padding: 20px;
 }
+
