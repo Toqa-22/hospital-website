@@ -1,217 +1,233 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تسجيل الدخول - مستشفى ابراء</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="assets/js/supabase-client.js"></script>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - مستشفى ابراء</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/supabase-client.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-  body {
-    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
-    background: linear-gradient(135deg, #1a3a5c 0%, #0d5c8a 50%, #1a7aaa 100%);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+        body {
+            font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+            background: linear-gradient(135deg, #1a3a5c 0%, #0d5c8a 50%, #1a7aaa 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-  .login-wrapper {
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    width: 420px;
-    max-width: 95vw;
-    overflow: hidden;
-  }
+        .login-wrapper {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 420px;
+            max-width: 95vw;
+            overflow: hidden;
+        }
 
-  .login-header {
-    background: linear-gradient(135deg, #1a3a5c, #0d5c8a);
-    padding: 36px 32px 28px;
-    text-align: center;
-    color: white;
-  }
+        .login-header {
+            background: linear-gradient(135deg, #1a3a5c, #0d5c8a);
+            padding: 36px 32px 28px;
+            text-align: center;
+            color: white;
+        }
 
-  .hospital-logo {
-    width: 70px;
-    height: 70px;
-    background: rgba(255,255,255,0.2);
-    border-radius: 50%;
-    margin: 0 auto 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 32px;
-  }
+        .hospital-logo {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
 
-  .login-header h1 {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 6px;
-  }
+        .login-header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
 
-  .login-header p {
-    font-size: 14px;
-    opacity: 0.85;
-  }
+        .login-header p {
+            font-size: 14px;
+            opacity: 0.85;
+        }
 
-  .login-body {
-    padding: 36px 32px;
-  }
+        .login-body {
+            padding: 36px 32px;
+        }
 
-  .form-group {
-    margin-bottom: 22px;
-  }
+        .form-group {
+            margin-bottom: 22px;
+        }
 
-  .form-group label {
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 8px;
-  }
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
 
-  .form-group input {
-    width: 100%;
-    padding: 12px 16px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 15px;
-    font-family: inherit;
-    transition: border-color 0.2s;
-    direction: ltr;
-    text-align: right;
-  }
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+            direction: ltr;
+            text-align: right;
+        }
 
-  .form-group input:focus {
-    outline: none;
-    border-color: #0d5c8a;
-  }
+        .form-group input:focus {
+            outline: none;
+            border-color: #0d5c8a;
+        }
 
-  .login-btn {
-    width: 100%;
-    padding: 14px;
-    background: linear-gradient(135deg, #0d5c8a, #1a7aaa);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 700;
-    font-family: inherit;
-    cursor: pointer;
-    transition: opacity 0.2s, transform 0.1s;
-  }
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #0d5c8a, #1a7aaa);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.1s;
+        }
 
-  .login-btn:hover { opacity: 0.9; }
-  .login-btn:active { transform: scale(0.99); }
-  .login-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        .login-btn:hover {
+            opacity: 0.9;
+        }
 
-  .error-msg {
-    background: #fef2f2;
-    color: #b91c1c;
-    border: 1px solid #fecaca;
-    border-radius: 8px;
-    padding: 12px 16px;
-    font-size: 14px;
-    margin-top: 16px;
-    text-align: center;
-    display: none;
-  }
+        .login-btn:active {
+            transform: scale(0.99);
+        }
 
-  .login-footer {
-    text-align: center;
-    padding: 16px;
-    font-size: 12px;
-    color: #999;
-    border-top: 1px solid #f0f0f0;
-  }
-</style>
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .error-msg {
+            background: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 14px;
+            margin-top: 16px;
+            text-align: center;
+            display: none;
+        }
+
+        .login-footer {
+            text-align: center;
+            padding: 16px;
+            font-size: 12px;
+            color: #999;
+            border-top: 1px solid #f0f0f0;
+        }
+    </style>
 </head>
+
 <body>
 
-<div class="login-wrapper">
-  <div class="login-header">
-    <div class="hospital-logo">🏥</div>
-    <h1>مستشفى ابراء</h1>
-    <p>نظام قسم العلاقات العامة</p>
-  </div>
+    <div class="login-wrapper">
+        <div class="login-header">
+            <div class="hospital-logo">🏥</div>
+            <h1>مستشفى ابراء</h1>
+            <p>نظام قسم العلاقات العامة</p>
+        </div>
 
-  <div class="login-body">
-    <div class="form-group">
-      <label for="username">اسم المستخدم</label>
-      <input type="text" id="username" placeholder="أدخل اسم المستخدم" autocomplete="username">
+        <div class="login-body">
+            <div class="form-group">
+                <label for="username">اسم المستخدم</label>
+                <input type="text" id="username" placeholder="أدخل اسم المستخدم" autocomplete="username">
+            </div>
+
+            <div class="form-group">
+                <label for="password">كلمة المرور</label>
+                <input type="password" id="password" placeholder="أدخل كلمة المرور" autocomplete="current-password">
+            </div>
+
+            <button class="login-btn" onclick="doLogin()" id="loginBtn">تسجيل الدخول</button>
+
+            <div class="error-msg" id="errorMsg">اسم المستخدم أو كلمة المرور غير صحيحة</div>
+        </div>
+
+        <div class="login-footer">© مستشفى ابراء - قسم العلاقات العامة والإعلام</div>
     </div>
 
-    <div class="form-group">
-      <label for="password">كلمة المرور</label>
-      <input type="password" id="password" placeholder="أدخل كلمة المرور" autocomplete="current-password">
-    </div>
+    <script>
+        // السماح بالضغط على Enter
+        document.getElementById('password').addEventListener('keydown', e => {
+            if (e.key === 'Enter') doLogin();
+        });
 
-    <button class="login-btn" onclick="doLogin()" id="loginBtn">تسجيل الدخول</button>
+        async function doLogin() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const btn = document.getElementById('loginBtn');
+            const err = document.getElementById('errorMsg');
 
-    <div class="error-msg" id="errorMsg">اسم المستخدم أو كلمة المرور غير صحيحة</div>
-  </div>
+            if (!username || !password) {
+                err.textContent = 'يرجى إدخال اسم المستخدم وكلمة المرور';
+                err.style.display = 'block';
+                return;
+            }
 
-  <div class="login-footer">© مستشفى ابراء - قسم العلاقات العامة والإعلام</div>
-</div>
+            btn.disabled = true;
+            btn.textContent = 'جاري التحقق...';
+            err.style.display = 'none';
 
-<script>
-  // السماح بالضغط على Enter
-  document.getElementById('password').addEventListener('keydown', e => {
-    if (e.key === 'Enter') doLogin();
-  });
+            const supabase = window.supabaseClient;
+            const { data, error } = await supabase
+                .from('users')
+                .select('*')
+                .eq('username', username)
+                .eq('password_hash', password)
+                .single();
 
-  async function doLogin() {
-    const username = document.getElementById('username').value.trim();
-    const password = document.getElementById('password').value.trim();
-    const btn = document.getElementById('loginBtn');
-    const err = document.getElementById('errorMsg');
+            if (error || !data) {
+                err.textContent = 'اسم المستخدم أو كلمة المرور غير صحيحة';
+                err.style.display = 'block';
+                btn.disabled = false;
+                btn.textContent = 'تسجيل الدخول';
+                return;
+            }
 
-    if (!username || !password) {
-      err.textContent = 'يرجى إدخال اسم المستخدم وكلمة المرور';
-      err.style.display = 'block';
-      return;
-    }
+            // حفظ بيانات الجلسة
+            sessionStorage.setItem('currentUser', JSON.stringify({
+                id: data.id,
+                username: data.username,
+                role: data.role,
+                department_code: data.department_code,
+                display_name: data.display_name
+            }));
 
-    btn.disabled = true;
-    btn.textContent = 'جاري التحقق...';
-    err.style.display = 'none';
-
-    const supabase = window.supabaseClient;
-    const { data, error } = await supabase
-      .from('users')
-      .select('*')
-      .eq('username', username)
-      .eq('password_hash', password)
-      .single();
-
-    if (error || !data) {
-      err.textContent = 'اسم المستخدم أو كلمة المرور غير صحيحة';
-      err.style.display = 'block';
-      btn.disabled = false;
-      btn.textContent = 'تسجيل الدخول';
-      return;
-    }
-
-    // حفظ بيانات الجلسة
-    sessionStorage.setItem('currentUser', JSON.stringify({
-      id: data.id,
-      username: data.username,
-      role: data.role,
-      department_code: data.department_code,
-      display_name: data.display_name
-    }));
-
-    // التوجيه حسب الدور
-    if (data.role === 'admin') {
-      window.location.href = 'pages/home.html';
-    } else {
-      window.location.href = 'pages/department.html';
-    }
-  }
-</script>
+            // التوجيه حسب الدور
+            if (data.role === 'admin') {
+                window.location.href = 'pages/home.html';
+            } else {
+                window.location.href = 'pages/js/department.html';
+            }
+        }
+    </script>
 
 </body>
+
 </html>

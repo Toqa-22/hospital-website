@@ -73,14 +73,12 @@ async function generateFeedbackTypeReport() {
             <meta charset="UTF-8">
             <title>تقرير الشكاوي والاقتراحات</title>
             <style>
+                .header-container { display: flex; justify-content: space-between; align-items: center; }
+                .logo { width: 150px; height: auto; }
                 body{
                     font-family:Tahoma,sans-serif;
                     padding:40px;
                     direction:rtl;
-                }
-
-                h1{
-                    text-align:center;
                 }
 
                 table{
@@ -92,7 +90,7 @@ async function generateFeedbackTypeReport() {
                 th,td{
                     border:1px solid #000;
                     padding:10px;
-                    text-align:center;
+                    text-align:right;
                 }
 
                 th{
@@ -107,8 +105,11 @@ async function generateFeedbackTypeReport() {
             </style>
         </head>
         <body>
-
-            <h1>تقرير الشكاوي والاقتراحات</h1>
+            <div class="header-container">
+                <div> <img src="../../images/hospital_logo.png" class="logo" alt="Logo"> </div>
+            </div>
+            <h1>مستشفى ابراء قسم العلاقات</h1>
+            <h2>تقرير الشكاوي والاقتراحات</h2>
 
             <table>
                 <tr>
@@ -127,12 +128,8 @@ async function generateFeedbackTypeReport() {
                 ${selectedTypes.includes("شكوى")
                     ? `<tr><td>شكوى</td><td>${summary["شكوى"]}</td></tr>`
                     : ""}
+                <tr><th>المجموع الكلي:</th><th> ${total}</th></tr>    
             </table>
-
-            <div class="total">
-                المجموع الكلي: ${total}
-            </div>
-
         </body>
         </html>
         `;
@@ -213,21 +210,27 @@ async function generateFeedbackTypeReport() {
             <head>
                 <meta charset="UTF-8">
                 <style>
-                    body { font-family: Tahoma, sans-serif; padding: 40px; direction: rtl; }
+                    .header-container { display: flex; justify-content: space-between; align-items: center; }
+                    .logo { width: 150px; height: auto; }
+                    body { font-family: "Times New Roman",Tahoma, sans-serif; padding: 40px; direction: rtl; }
                     table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-                    th, td { border: 1px solid #333; padding: 10px; text-align: center; }
+                    th, td { border: 1px solid #333; padding: 10px; text-align: right; }
                     th { background: #eee; }
                     .footer-total { margin-top: 20px; font-weight: bold; font-size: 18px; }
                 </style>
             </head>
             <body>
-                <h1>تقرير الأحداث اليومية</h1>
+                <div class="header-container">
+                    <div> <img src="../../images/hospital_logo.png" class="logo" alt="Logo"> </div>
+                </div>
+                <h1>مستشفى ابراء قسم العلاقات</h1>
+                <h2>تقرير الأحداث اليومية</h2>
                 <p>الفترة من: ${fromDate} إلى: ${toDate}</p>
                 <table>
                     <tr><th>نوع الحالة</th><th>العدد</th></tr>
                     ${rows}
+                    <tr><th>المجموع الكلي:</th><th> ${total}</th></tr>
                 </table>
-                <div class="footer-total">المجموع الكلي: ${total}</div>
             </body>
             </html>`;
 

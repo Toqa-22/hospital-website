@@ -1,45 +1,45 @@
 document.addEventListener("DOMContentLoaded", () => {
     const departmentNames = {
-    finance: "دائرة الشؤون المالية",
-    it_statistics: "دائرة تقنية المعلومات والإحصاء",
-    quality: "دائرة الجودة وسلامة المرضى",
-    training: "دائرة التدريب والتطوير المهني",
-    public_relations: "قسم العلاقات العامة والإعلام",
-    engineering: "قسم الهندسة والصيانة",
-    general_services: "قسم الخدمات العامة والنقليات",
-    security: "قسم الأمن والسلامة",
-    environmental_health: "قسم الصحة البيئية",
-    laboratory: "قسم المختبرات الطبية",
-    radiology: "قسم الأشعة والتصوير الطبي",
-    pharmacy: "قسم الصيدلة",
-    physiotherapy: "قسم العلاج الطبيعي",
-    clinical_nutrition: "قسم التغذية العلاجية",
-    respiratory: "قسم العلاج التنفسي",
-    infection_control: "قسم مكافحة العدوى",
-    er_nursing: "تمريض الحوادث والطوارئ",
-    er_doctors: "أطباء الحوادث والطوارئ",
-    internal_medicine: "أطباء الباطنية",
-    children_department: "قسم الأطفال",
-    pediatric_doctors: "أطباء الأطفال",
-    general_surgery: "أطباء الجراحة العامة",
-    maternity_nursing: "تمريض النساء والولادة",
-    obgyn_doctors: "أطباء النساء والولادة",
-    icu_nursing: "تمريض العناية",
-    anesthesia_doctors: "أطباء التخدير",
-    operation_nursing: "تمريض العمليات",
-    outpatient_nursing: "تمريض العيادات الخارجية",
-    dermatology_doctors: "أطباء الجلدية",
-    ent_doctors: "أطباء الأنف والأذن",
-    ophthalmology_doctors: "أطباء العيون",
-    mental_health: "قسم الصحة النفسية",
-    kidney_nursing: "تمريض أمراض الكلى والغسيل الكلوي",
-    kidney_doctors: "أطباء أمراض الكلى والغسيل الكلوي",
-    orthopedic_doctors: "أطباء العظام",
-    senior_women_nursing: "تمريض النساء كبار",
-    nursery_nursing: "تمريض الحضانة",
-    delivery_room_nursing: "تمريض صالة الولادة",
-    medical_surgical_nursing: "تمريض الباطنية والجراحة"
-};
+        finance: "دائرة الشؤون المالية",
+        it_statistics: "دائرة تقنية المعلومات والإحصاء",
+        quality: "دائرة الجودة وسلامة المرضى",
+        training: "دائرة التدريب والتطوير المهني",
+        public_relations: "قسم العلاقات العامة والإعلام",
+        engineering: "قسم الهندسة والصيانة",
+        general_services: "قسم الخدمات العامة والنقليات",
+        security: "قسم الأمن والسلامة",
+        environmental_health: "قسم الصحة البيئية",
+        laboratory: "قسم المختبرات الطبية",
+        radiology: "قسم الأشعة والتصوير الطبي",
+        pharmacy: "قسم الصيدلة",
+        physiotherapy: "قسم العلاج الطبيعي",
+        clinical_nutrition: "قسم التغذية العلاجية",
+        respiratory: "قسم العلاج التنفسي",
+        infection_control: "قسم مكافحة العدوى",
+        er_nursing: "تمريض الحوادث والطوارئ",
+        er_doctors: "أطباء الحوادث والطوارئ",
+        internal_medicine: "أطباء الباطنية",
+        children_department: "قسم الأطفال",
+        pediatric_doctors: "أطباء الأطفال",
+        general_surgery: "أطباء الجراحة العامة",
+        maternity_nursing: "تمريض النساء والولادة",
+        obgyn_doctors: "أطباء النساء والولادة",
+        icu_nursing: "تمريض العناية",
+        anesthesia_doctors: "أطباء التخدير",
+        operation_nursing: "تمريض العمليات",
+        outpatient_nursing: "تمريض العيادات الخارجية",
+        dermatology_doctors: "أطباء الجلدية",
+        ent_doctors: "أطباء الأنف والأذن",
+        ophthalmology_doctors: "أطباء العيون",
+        mental_health: "قسم الصحة النفسية",
+        kidney_nursing: "تمريض أمراض الكلى والغسيل الكلوي",
+        kidney_doctors: "أطباء أمراض الكلى والغسيل الكلوي",
+        orthopedic_doctors: "أطباء العظام",
+        senior_women_nursing: "تمريض النساء كبار",
+        nursery_nursing: "تمريض الحضانة",
+        delivery_room_nursing: "تمريض صالة الولادة",
+        medical_surgical_nursing: "تمريض الباطنية والجراحة"
+    };
 
     const supabase = window.supabaseClient;
     if (!supabase) { console.error("Supabase not loaded!"); return; }
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // تشغيل المهام الأساسية
     fetchFeedbackData();
-    loadDepartments(); 
+    loadDepartments();
 
     // --- جلب الأقسام من قاعدة البيانات (ديناميكي) ---
     async function loadDepartments() {
@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
         closeModal();
         fetchFeedbackData();
     };
-    
+
     // --- الدوال المطلوبة (toggleDetails & printCase) ---
     window.toggleDetails = (index) => {
         const row = document.getElementById(`details-${index}`);

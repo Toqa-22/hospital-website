@@ -1,93 +1,97 @@
 <!DOCTYPE html>
 <html lang="ar">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>الشكاوى والاقتراحات والشكر</title>
+    <title>الشكاوى والاقتراحات والشكر</title>
 
-<link rel="stylesheet" href="../assets/css/layout.css">
-<link rel="stylesheet" href="../assets/css/feedback.css">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="../assets/js/supabase-client.js"></script>
-<script defer src="../assets/js/layout.js"></script>
-<script defer src="../assets/js/feedback.js"></script>
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/feedback.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../assets/js/supabase-client.js"></script>
+    <script defer src="../assets/js/layout.js"></script>
+    <script defer src="../assets/js/feedback.js"></script>
 </head>
 
 <body>
 
-<div class="header">
-    <div class="menu-btn" onclick="toggleSidebar()">☰</div>
-    <div class="page-title">مستشفى ابراء قسم العلاقات</div>
-</div>
-
-<div id="sidebar" class="sidebar">
-    <a href="home.html">الرئيسية</a>
-    <a href="search.html">البحث</a>
-    <a href="daily-events.html">الأحداث اليومية</a>
-    <a href="feedback.html">الشكاوى / الاقتراحات / الشكر</a>
-    <a href="../form.html">تسجيل شكر/إقتراح/شكوى</a>
-    <a href="../index.html">تسجيل خروج</a>
-</div>
-
-<div id="content" class="content">
-
-<div class="table-container">
-
-    <div class="table-top">
-
-        <h2>إدارة الشكاوى والاقتراحات والشكر</h2>
-
+    <div class="header">
+        <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+        <div class="page-title">مستشفى ابراء قسم العلاقات</div>
     </div>
 
-    <table>
+    <!-- SIDEBAR -->
+    <div id="sidebar" class="sidebar">
+        <a href="../home.html">الرئيسية</a>
+        <a href="search.html">البحث</a>
+        <a href="daily-events.html">تسجيل الأحداث اليومية</a>
+        <a href="today_event.html">احداث اليوم</a>
+        <a href="feedback.html">الشكاوي / الاقتراحات / الشكر</a>
+        <a href="../form.html">تسجيل شكر/إقتراح/شكوى</a>
+        <a href="../index.html">تسجيل خروج</a>
+    </div>
 
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>التاريخ</th>
-                <th>اسم المريض</th>
-                <th>رقم الملف</th>
-                <th>اسم المبلغ / المشتكي</th>
-                <th>رقم الهاتف</th>
-                <th>نوع الحالة</th>
-                <th>تحويل للقسم</th>
-                <th>التفاصيل</th>
-                <th>طباعة</th>
-            </tr>
-        </thead>
+    <div id="content" class="content">
 
-        <tbody id="feedbackTableBody">
+        <div class="table-container">
 
-        </tbody>
+            <div class="table-top">
 
-    </table>
+                <h2>إدارة الشكاوى والاقتراحات والشكر</h2>
 
-</div>
+            </div>
 
-</div>
+            <table>
 
-<div id="assignModal" class="modal">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>التاريخ</th>
+                        <th>اسم المريض</th>
+                        <th>رقم الملف</th>
+                        <th>اسم المبلغ / المشتكي</th>
+                        <th>رقم الهاتف</th>
+                        <th>نوع الحالة</th>
+                        <th>تحويل للقسم</th>
+                        <th>التفاصيل</th>
+                        <th>طباعة</th>
+                    </tr>
+                </thead>
 
-    <div class="modal-content">
+                <tbody id="feedbackTableBody">
 
-        <h3>اختيار الأقسام</h3>
+                </tbody>
 
-        <div class="departments-list" id="departmentsList">
-</div>
+            </table>
 
-        <div class="modal-buttons">
-            <button onclick="saveAssignment()">حفظ</button>
-            <button onclick="closeModal()">إلغاء</button>
         </div>
 
     </div>
 
-</div>
+    <div id="assignModal" class="modal">
 
-<div class="footer">
-    © Public Relations System
-</div>
+        <div class="modal-content">
+
+            <h3>اختيار الأقسام</h3>
+
+            <div class="departments-list" id="departmentsList">
+            </div>
+
+            <div class="modal-buttons">
+                <button onclick="saveAssignment()">حفظ</button>
+                <button onclick="closeModal()">إلغاء</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+        © Public Relations System
+    </div>
 
 </body>
+
 </html>

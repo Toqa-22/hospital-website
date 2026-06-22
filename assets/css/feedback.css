@@ -154,3 +154,8 @@ tbody tr:hover{
     display: flex;
     flex-direction: column;
 }
+.content {
+    /* هذا يجعل الجدول لا يلتصق بالأطراف ويترك مساحة للقائمة */
+    margin-right: 250px; 
+    transition: margin-right 0.4s ease;
+}

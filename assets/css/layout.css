@@ -14,7 +14,7 @@ body {
 /* ===== HEADER ===== */
 .header {
   height: 60px;
-  background: linear-gradient(135deg, #2c7be5, #1a56d6);
+  background: linear-gradient(135deg, #2c7be5, #123074);
   color: white;
   display: flex;
   align-items: center;
@@ -24,6 +24,7 @@ body {
   top: 0;
   width: 100%;
   z-index: 1000;
+  font-size: 25px;
 }
 
 .menu-btn {
@@ -42,7 +43,7 @@ body {
   font-size: 25px;
   width: 220px;
   height: calc(100vh - 60px);
-  background: #0d47ba;
+  background: linear-gradient(135deg, #2c7be5, #123074);
   position: fixed;
   top: 60px;
   right: 0;
@@ -86,10 +87,20 @@ body {
 /* ===== FOOTER ===== */
 .footer {
   text-align: center;
-  padding: 10px;
-  background: #1f2a40;
+  padding: 20px;
+  background: linear-gradient(135deg, #2c7be5, #123074);
   color: white;
+
   position: fixed;
   bottom: 0;
+  left: 0;
   width: 100%;
+  z-index: 9999;
+
+  height: 50px;
+}
+
+/* ===== fount ===== */
+h2{
+  font-size: 20px;
 }
