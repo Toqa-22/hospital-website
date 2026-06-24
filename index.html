@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - مستشفى ابراء</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/supabase-client.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+            background: linear-gradient(145deg, #0a2540 0%, #0d5c8a 60%, #1a7aaa 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+            width: 400px;
+            max-width: 94vw;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #0a2540, #0d5c8a);
+            padding: 40px 32px 30px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .logo {
+            width: 72px;
+            height: 72px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            margin: 0 auto 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+        }
+
+        .card-header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .card-header p {
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        .card-body {
+            padding: 32px;
+        }
+
+        .field {
+            margin-bottom: 20px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 7px;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 11px 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 9px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color .2s;
+            direction: ltr;
+            text-align: right;
+        }
+
+        .field input:focus {
+            outline: none;
+            border-color: #0d5c8a;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 13px;
+            background: linear-gradient(135deg, #0d5c8a, #1a7aaa);
+            color: #fff;
+            border: none;
+            border-radius: 9px;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: opacity .2s;
+            margin-top: 4px;
+        }
+
+        .btn-login:hover {
+            opacity: .9;
+        }
+
+        .btn-login:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+        }
+
+        .error {
+            background: #fff5f5;
+            color: #c53030;
+            border: 1px solid #fed7d7;
+            border-radius: 8px;
+            padding: 11px 14px;
+            font-size: 13px;
+            margin-top: 14px;
+            text-align: center;
+            display: none;
+        }
+
+        .card-footer {
+            text-align: center;
+            padding: 14px;
+            font-size: 12px;
+            color: #aaa;
+            border-top: 1px solid #f0f0f0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div class="card-header">
+            <div class="logo">🏥</div>
+            <h1>مستشفى ابراء</h1>
+            <p>نظام إدارة العلاقات العامة</p>
+        </div>
+        <div class="card-body">
+            <div class="field">
+                <label>اسم المستخدم</label>
+                <input type="text" id="username" placeholder="أدخل اسم المستخدم">
+            </div>
+            <div class="field">
+                <label>كلمة المرور</label>
+                <input type="password" id="password" placeholder="أدخل كلمة المرور">
+            </div>
+            <button class="btn-login" id="loginBtn" onclick="doLogin()">تسجيل الدخول</button>
+            <div class="error" id="errMsg"></div>
+        </div>
+        <div class="card-footer">© مستشفى ابراء — قسم العلاقات العامة</div>
+    </div>
+
+    <script>
+        document.getElementById('password').addEventListener('keydown', e => {
+            if (e.key === 'Enter') doLogin();
+        });
+
+        async function doLogin() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const btn = document.getElementById('loginBtn');
+            const err = document.getElementById('errMsg');
+            err.style.display = 'none';
+
+            if (!username || !password) {
+                err.textContent = 'يرجى إدخال اسم المستخدم وكلمة المرور';
+                err.style.display = 'block'; return;
+            }
+
+            btn.disabled = true; btn.textContent = 'جاري التحقق...';
+
+            const supabase = window.supabaseClient;
+            const { data, error } = await supabase
+                .from('users')
+                .select('*')
+                .eq('username', username)
+                .eq('password_hash', password)
+                .maybeSingle();
+
+            if (error || !data) {
+                err.textContent = 'اسم المستخدم أو كلمة المرور غير صحيحة';
+                err.style.display = 'block';
+                btn.disabled = false; btn.textContent = 'تسجيل الدخول';
+                return;
+            }
+
+            sessionStorage.setItem('currentUser', JSON.stringify({
+                id: data.id,
+                username: data.username,
+                role: data.role,
+                department_code: data.department_code,
+                display_name: data.display_name
+            }));
+
+            // توجيه حسب الدور
+            if (data.role === 'admin') {
+                window.location.href = 'home.html';
+            } else {
+                window.location.href = 'department-home.html';
+            }
+        }
+    </script>
+</body>
+
+</html>

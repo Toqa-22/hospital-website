@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قسم العلاقات العامة - مستشفى إبراء</title>
+
+    <link rel="stylesheet" href="assets/css/layout.css">
+
+    <style>
+        body {
+            background: #f5f8fc;
+            font-family: 'Tahoma', sans-serif;
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, #eef4fb, #f8fbff);
+            min-height: 550px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+            padding: 50px;
+        }
+
+        .hero-stats {
+            width: 260px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,.08);
+        }
+
+        .stat-icon { font-size: 40px; }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            color: #0b4d9c;
+        }
+
+        .stat-title { color: #666; }
+
+        .hero-content {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hero-content h3 { color: #555; margin-bottom: 10px; }
+
+        .hero-content h1 {
+            font-size: 60px;
+            color: #083b85;
+            margin-bottom: 10px;
+        }
+
+        .hero-content h2 { color: #0d5c8a; margin-bottom: 20px; }
+
+        .hero-content p {
+            color: #666;
+            line-height: 2;
+            max-width: 650px;
+            margin: auto;
+        }
+
+        .hero-buttons { margin-top: 30px; }
+
+        .btn-primary, .btn-secondary {
+            display: inline-block;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: .3s;
+        }
+
+        .btn-primary { background: #083b85; color: white; }
+
+        .btn-secondary {
+            background: white;
+            color: #083b85;
+            border: 2px solid #083b85;
+            margin-right: 10px;
+        }
+
+        .btn-primary:hover, .btn-secondary:hover { transform: translateY(-3px); }
+
+        .hero-image img { width: 280px; }
+
+        /* SERVICES */
+        .services {
+            background: white;
+            padding: 70px 30px;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #083b85;
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #777;
+            margin-bottom: 40px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,.08);
+            transition: .3s;
+        }
+
+        .service-card:hover { transform: translateY(-8px); }
+
+        .service-icon { font-size: 50px; margin-bottom: 15px; }
+
+        .service-card h3 { color: #083b85; margin-bottom: 10px; }
+
+        .service-card p { color: #666; line-height: 1.8; }
+
+        /* BLUE SECTION */
+        .info-banner {
+            background: #083b85;
+            color: white;
+            margin: 30px;
+            border-radius: 20px;
+            padding: 35px;
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            margin-bottom: 80px; /* فراغ فوق الفوتر الثابت */
+        }
+
+        .info-box { flex: 1; text-align: center; }
+        .info-box h3 { margin-bottom: 10px; }
+
+        /* MOBILE */
+        @media(max-width:900px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px 20px;
+            }
+            .hero-stats { width: 100%; }
+            .hero-content h1 { font-size: 38px; }
+            .hero-image img { width: 180px; }
+            .info-banner { flex-direction: column; }
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/supabase-client.js"></script>
+    <script defer src="assets/js/layout.js"></script>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+        <div class="page-title">مستشفى إبراء قسم العلاقات العامة</div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div id="sidebar" class="sidebar">
+        <a href="index.html" class="active">الرئيسية</a>
+        <a href="relation_dep/search.html">البحث</a>
+        <a href="relation_dep/daily-events.html">الأحداث اليومية</a>
+        <a href="relation_dep/today_event.html">أحداث اليوم</a>
+        <a href="relation_dep/feedback.html">الشكاوى / الاقتراحات / الشكر</a>
+        <a href="../form.html">تسجيل شكر / اقتراح / شكوى</a>
+        <a href="index.html">تسجيل خروج</a>
+    </div>
+
+    <!-- MAIN CONTENT — الإصلاح: إضافة class="content" -->
+    <div id="content" class="content">
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">📋</div>
+                    <div>
+                        <div class="stat-number" id="feedbackCount">—</div>
+                        <div class="stat-title">إجمالي الحالات</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">📅</div>
+                    <div>
+                        <div class="stat-number" id="eventCount">—</div>
+                        <div class="stat-title">أحداث اليوم</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-content">
+                <h3>مرحباً بك في</h3>
+                <h1>قسم العلاقات العامة</h1>
+                <h2>مستشفى إبراء</h2>
+                <p>
+                    نعمل على تعزيز التواصل مع المرضى والمراجعين واستقبال
+                    الشكاوى والاقتراحات ورسائل الشكر ومتابعة الفعاليات
+                    اليومية وتحسين جودة الخدمات الصحية.
+                </p>
+                <div class="hero-buttons">
+                    <a href="relation_dep/feedback.html" class="btn-primary">عرض الحالات</a>
+                    <a href="relation_dep/today_event.html" class="btn-secondary">أحداث اليوم</a>
+                </div>
+            </div>
+
+            <div class="hero-image">
+                <img src="images/hospital_logo.png" alt="Hospital Logo"
+                     onerror="this.style.display='none'">
+            </div>
+
+        </section>
+
+        <!-- SERVICES -->
+        <section class="services">
+            <h2 class="section-title">خدماتنا</h2>
+            <p class="section-subtitle">مجموعة من الخدمات المقدمة من قسم العلاقات العامة</p>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🔍</div>
+                    <h3>البحث</h3>
+                    <p>البحث في البيانات والسجلات.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📅</div>
+                    <h3>الأحداث اليومية</h3>
+                    <p>متابعة وتوثيق فعاليات المستشفى.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📝</div>
+                    <h3>الشكاوى والاقتراحات</h3>
+                    <p>إدارة ومتابعة الحالات الواردة.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">⭐</div>
+                    <h3>رسائل الشكر</h3>
+                    <p>عرض رسائل الشكر والتقدير.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLUE SECTION -->
+        <section class="info-banner">
+            <div class="info-box">
+                <h3>إشعارات وتنبيهات</h3>
+                <p>متابعة آخر الحالات والأحداث الجديدة.</p>
+            </div>
+            <div class="info-box">
+                <h3>رؤيتنا</h3>
+                <p>التميز في التواصل وخدمة المجتمع.</p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        © Public Relations System - Ibra Hospital
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async function () {
+            const supabase = window.supabaseClient;
+            if (!supabase) {
+                // إذا supabase غير محمّل اعرض أصفار
+                document.getElementById("feedbackCount").textContent = "0";
+                document.getElementById("eventCount").textContent = "0";
+                return;
+            }
+
+            // إجمالي الشكاوى
+            const { count: fbCount } = await supabase
+                .from('feedback')
+                .select('id', { count: 'exact', head: true });
+
+            document.getElementById("feedbackCount").textContent = fbCount ?? 0;
+
+            // أحداث اليوم فقط
+            const today = new Date().toISOString().split('T')[0];
+            const { count: evCount } = await supabase
+                .from('daily_events')
+                .select('id', { count: 'exact', head: true })
+                .gte('incident_time', today + 'T00:00:00')
+                .lte('incident_time', today + 'T23:59:59');
+
+            document.getElementById("eventCount").textContent = evCount ?? 0;
+        });
+    </script>
+
+</body>
+</html>

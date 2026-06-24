@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الشكاوى المحوّلة</title>
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/feedback.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-client.js"></script>
+<script src="assets/js/auth.js"></script>
+<script defer src="assets/js/layout.js"></script>
+<script defer src="assets/js/department-feedback.js"></script>
+<style>
+  /* ---- تعليق مودال ---- */
+  .comment-modal {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  .comment-modal.open { display: flex; }
+  .comment-box {
+    background: #fff;
+    border-radius: 14px;
+    padding: 28px 30px;
+    width: 520px;
+    max-width: 95vw;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    direction: rtl;
+  }
+  .comment-box h3 { font-size: 18px; color: #0a2540; margin-bottom: 18px; }
+  .comment-history {
+    max-height: 200px; overflow-y: auto;
+    background: #f8fafc; border-radius: 8px;
+    padding: 12px; margin-bottom: 14px;
+    font-size: 13px; line-height: 1.9;
+  }
+  .comment-history .c-item {
+    border-bottom: 1px solid #e8edf2;
+    padding: 8px 0;
+  }
+  .comment-history .c-item:last-child { border-bottom: none; }
+  .comment-history .c-date { font-size: 11px; color: #999; }
+  .comment-history .empty { color: #aaa; text-align: center; padding: 12px 0; }
+  .comment-box textarea {
+    width: 100%; min-height: 90px;
+    border: 2px solid #e2e8f0; border-radius: 9px;
+    padding: 10px 13px; font-size: 14px;
+    font-family: inherit; resize: vertical;
+    transition: border-color .2s;
+  }
+  .comment-box textarea:focus { outline: none; border-color: #0d5c8a; }
+  .comment-actions {
+    display: flex; gap: 10px; margin-top: 14px; justify-content: flex-end;
+  }
+  .btn-save-comment {
+    background: #0d5c8a; color: #fff;
+    border: none; border-radius: 8px;
+    padding: 10px 22px; font-size: 14px;
+    font-family: inherit; cursor: pointer;
+    transition: opacity .2s;
+  }
+  .btn-save-comment:hover { opacity: .88; }
+  .btn-cancel-comment {
+    background: #edf2f7; color: #555;
+    border: none; border-radius: 8px;
+    padding: 10px 18px; font-size: 14px;
+    font-family: inherit; cursor: pointer;
+  }
+  /* badge عدد التعليقات */
+  .comment-count {
+    display: inline-block;
+    background: #0d5c8a; color: #fff;
+    font-size: 11px; border-radius: 20px;
+    padding: 1px 7px; margin-right: 4px;
+    vertical-align: middle;
+  }
+  /* حالة جديدة */
+  .badge-new {
+    background: #e53e3e; color: #fff;
+    font-size: 10px; border-radius: 20px;
+    padding: 1px 6px; margin-right: 4px;
+    vertical-align: middle;
+  }
+  tr.row-unread td { background: #fff8e1 !important; }
+  .btn-read {
+    background: #38a169; color: #fff;
+    border: none; border-radius: 6px;
+    padding: 5px 10px; font-size: 12px;
+    cursor: pointer; font-family: inherit;
+  }
+  .btn-comment {
+    background: #6b46c1; color: #fff;
+    border: none; border-radius: 6px;
+    padding: 5px 10px; font-size: 12px;
+    cursor: pointer; font-family: inherit;
+    margin-right: 4px;
+  }
+  .received-icon { color: #38a169; font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+  <div class="page-title">مستشفى ابراء — <span id="headerDept"></span></div>
+  <div style="margin-right:auto;padding-left:18px;font-size:13px;color:rgba(255,255,255,0.85);" id="headerUser"></div>
+</div>
+
+<div id="sidebar" class="sidebar">
+  <a href="department-home.html"> الرئيسية</a>
+  <a href="department-feedback.html" class="active"> الشكاوى المحوّلة</a>
+  <a href="#" onclick="logout()"> تسجيل خروج</a>
+</div>
+
+<div id="content" class="content">
+  <div class="table-container">
+    <div class="table-top">
+      <h2>الحالات المحوّلة إلى قسمك <span id="unreadBadge" style="background:#e53e3e;color:#fff;font-size:13px;border-radius:20px;padding:2px 10px;margin-right:8px;display:none;"></span></h2>
+      <div style="display:flex;gap:10px;margin-top:8px;">
+        <button onclick="markAllRead()" class="btn-assign" style="padding:7px 16px;font-size:13px;">تأكيد استلام الكل ✓</button>
+        <button onclick="fetchNotifications()" class="btn-view" style="padding:7px 16px;font-size:13px;">تحديث 🔄</button>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>التاريخ</th>
+          <th>اسم المريض</th>
+          <th>رقم الملف</th>
+          <th>المبلّغ</th>
+          <th>الهاتف</th>
+          <th>نوع الحالة</th>
+          <th>تاريخ التحويل</th>
+          <th>الحالة</th>
+          <th>الإجراءات</th>
+        </tr>
+      </thead>
+      <tbody id="deptTableBody">
+        <tr><td colspan="10" style="text-align:center;padding:30px;color:#999;">جاري التحميل...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- مودال التعليقات -->
+<div class="comment-modal" id="commentModal">
+  <div class="comment-box">
+    <h3>💬 التعليقات على الحالة <span id="modalCaseId"></span></h3>
+    <div class="comment-history" id="commentHistory"></div>
+    <textarea id="commentText" placeholder="اكتب تعليقك أو ردّك على هذه الحالة..."></textarea>
+    <div class="comment-actions">
+      <button class="btn-save-comment" id="saveCommentBtn" onclick="saveComment()">إرسال التعليق</button>
+      <button class="btn-cancel-comment" onclick="closeCommentModal()">إغلاق</button>
+    </div>
+  </div>
+</div>
+
+<div class="footer">© Public Relations System — مستشفى ابراء</div>
+</body>
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>الرئيسية - القسم</title>
+
+    <link rel="stylesheet" href="assets/css/layout.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/supabase-client.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script defer src="assets/js/layout.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5f8fc;
+            font-family: 'Tahoma', sans-serif;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero-section {
+            margin-top: 60px;
+            background: linear-gradient(135deg, #eef4fb, #f8fbff);
+            padding: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+            min-height: 500px;
+        }
+
+        .hero-stats {
+            width: 260px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, .08);
+        }
+
+        .stat-icon {
+            font-size: 42px;
+        }
+
+        .stat-info {
+            text-align: right;
+        }
+
+        .stat-number {
+            font-size: 38px;
+            font-weight: bold;
+            color: #0d5c8a;
+        }
+
+        .stat-label {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .hero-content {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hero-content h3 {
+            color: #444;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .hero-content h1 {
+            color: #083b85;
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .hero-content h2 {
+            color: #0d5c8a;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            max-width: 650px;
+            margin: auto;
+            line-height: 2;
+            color: #666;
+            font-size: 17px;
+        }
+
+        .hero-buttons {
+            margin-top: 35px;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            display: inline-block;
+            padding: 14px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: .3s;
+            margin: 5px;
+        }
+
+        .btn-primary {
+            background: #083b85;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            opacity: .9;
+        }
+
+        .btn-secondary {
+            border: 2px solid #083b85;
+            color: #083b85;
+            background: white;
+        }
+
+        .hero-image {
+            font-size: 180px;
+        }
+
+        /* ================= SERVICES ================= */
+
+        .services {
+            padding: 70px 30px;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #083b85;
+            font-size: 40px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #777;
+            margin-bottom: 40px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 25px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 18px;
+            padding: 35px;
+            text-align: center;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, .08);
+            transition: .3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .service-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .service-card h3 {
+            color: #083b85;
+            margin-bottom: 10px;
+        }
+
+        .service-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* ================= BANNER ================= */
+
+        .info-banner {
+            margin: 30px;
+            background: #083b85;
+            color: white;
+            border-radius: 20px;
+            padding: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .info-box {
+            flex: 1;
+            text-align: center;
+        }
+
+        .info-box h3 {
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            opacity: .9;
+        }
+
+        /* ================= FOOTER ================= */
+
+        .footer {
+            background: #062d66;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media(max-width:900px) {
+
+            .hero-section {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px 20px;
+            }
+
+            .hero-stats {
+                width: 100%;
+            }
+
+            .stat-card {
+                width: 100%;
+            }
+
+            .hero-content h1 {
+                font-size: 40px;
+            }
+
+            .hero-content h2 {
+                font-size: 28px;
+            }
+
+            .hero-image {
+                font-size: 100px;
+            }
+
+            .info-banner {
+                flex-direction: column;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <div class="header">
+        <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+
+        <div class="page-title">
+            مستشفى ابراء —
+            <span id="headerDept">القسم</span>
+        </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+
+    <div id="sidebar" class="sidebar">
+        <a href="department-home.html" class="active">الرئيسية</a>
+        <a href="department-feedback.html">الحالات المحولة</a>
+        <a href="#" onclick="logout()">تسجيل خروج</a>
+    </div>
+
+    <!-- CONTENT -->
+
+    <div id="content">
+
+        <!-- HERO -->
+
+        <section class="hero-section">
+
+            <div class="hero-stats">
+
+                <div class="stat-card">
+                    <div class="stat-icon">📄</div>
+
+                    <div class="stat-info">
+                        <div class="stat-number" id="totalNum">0</div>
+                        <div class="stat-label">
+                            إجمالي الحالات
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🔔</div>
+
+                    <div class="stat-info">
+                        <div class="stat-number" id="unreadNum">0</div>
+                        <div class="stat-label">
+                            حالات غير مقروءة
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="hero-content">
+
+                <h3>مرحباً بك في</h3>
+
+                <h1 id="deptName">
+                    القسم
+                </h1>
+
+                <h2>
+                    مستشفى إبراء
+                </h2>
+
+                <p>
+                    يمكنك من خلال هذا النظام متابعة جميع الحالات المحولة
+                    إلى قسمك من قبل قسم العلاقات العامة وإضافة الملاحظات
+                    والتعليقات ومتابعة حالة كل طلب بسهولة وشفافية.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a href="department-feedback.html" class="btn-primary">
+                        عرض الحالات المحولة
+                    </a>
+
+                    <a href="#services" class="btn-secondary">
+                        خدمات القسم
+                    </a>
+
+                </div>
+
+            </div>
+
+            
+
+        </section>
+
+        <!-- SERVICES -->
+
+        <section class="services" id="services">
+
+            <h2 class="section-title">
+                خدمات القسم
+            </h2>
+
+            <p class="section-subtitle">
+                مجموعة من الخدمات المتاحة لموظفي القسم
+            </p>
+
+            <div class="services-grid">
+
+                <div class="service-card">
+                    <div class="service-icon">📋</div>
+
+                    <h3>الحالات المحولة</h3>
+
+                    <p>
+                        عرض جميع الحالات المحولة
+                        إلى القسم ومتابعتها.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">💬</div>
+
+                    <h3>إضافة التعليقات</h3>
+
+                    <p>
+                        إضافة ملاحظات القسم
+                        على الحالات المختلفة.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+
+                    <h3>الإحصائيات</h3>
+
+                    <p>
+                        الاطلاع على مؤشرات
+                        وأرقام القسم.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🔔</div>
+
+                    <h3>التنبيهات</h3>
+
+                    <p>
+                        متابعة الحالات الجديدة
+                        والإشعارات المهمة.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- BLUE BANNER -->
+
+        <section class="info-banner">
+
+            <div class="info-box">
+                <h3>إشعارات وتنبيهات</h3>
+
+                <p>
+                    متابعة آخر الحالات الواردة للقسم.
+                </p>
+            </div>
+
+            <div class="info-box">
+                <h3>رؤيتنا</h3>
+
+                <p>
+                    تقديم أفضل الخدمات الصحية والإدارية.
+                </p>
+            </div>
+
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+        © 2026 مستشفى إبراء - جميع الحقوق محفوظة
+    </div>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', async () => {
+
+            const user = requireDepartment();
+            if (!user) return;
+
+            document.getElementById('deptName').textContent =
+                user.display_name;
+
+            document.getElementById('headerDept').textContent =
+                user.display_name;
+
+            document.getElementById('headerUser').textContent =
+                user.username;
+
+            const supabase = window.supabaseClient;
+
+            const { data, error } = await supabase
+                .from('department_notifications')
+                .select('id,is_read')
+                .eq('department_code', user.department_code);
+
+            if (!error && data) {
+
+                document.getElementById('totalNum').textContent =
+                    data.length;
+
+                document.getElementById('unreadNum').textContent =
+                    data.filter(x => !x.is_read).length;
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>
